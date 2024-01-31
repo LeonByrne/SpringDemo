@@ -20,4 +20,9 @@ public class PersonDTO
     {
         return this.age;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + ". Age: " + age;
+    }
 }

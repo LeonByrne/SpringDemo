@@ -1,14 +1,26 @@
 package BackendTeam.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+// Controllers are where we connect methods to the web. We assign urls to methods inside here.
 @RestController
 public class DemoController
 {
-    /*
+    // Autowired means spring boot will handle this, anything autowired by the same name is shared throughout the application.
+    @Autowired
+    DemoService demoService;
 
+    /*
+        There are a couple types of mappings.
+        GET    This is only for retrieving data from the server.
+        POST   This is used for providing data to the server for a wide variety of reasons.
+        PATCH  This is used for partial updates, eg only changing a persons phone no.
+        PUT    This is used to update or replace existing data.
+        DELETE This is for deleting data.
      */
 
     @GetMapping("/hello")  // The mapping tells spring where the function is called from. Eg http://localhost:8080/hello
@@ -43,7 +55,16 @@ public class DemoController
     @PostMapping("/person")
     public String person(@RequestBody PersonDTO person)
     {
+        // We are using the service here
+        demoService.addPerson(person);
+
         return "Your name is " + person.getName() + " and you're " + person.getAge() + " years old.";
+    }
+
+    @GetMapping("/people")
+    public String people()
+    {
+        return demoService.getPeople();
     }
 
     /*
@@ -80,5 +101,4 @@ public class DemoController
             return new ResponseEntity<>(Math.sqrt(num), HttpStatus.OK);
         }
     }
-
 }
