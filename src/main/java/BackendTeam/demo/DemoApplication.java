@@ -11,6 +11,9 @@ public class DemoApplication
 	@Autowired
 	DemoService demoService;
 
+	@Autowired
+	API_Service apiService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
